@@ -4,7 +4,7 @@ An AI sales-intake employee built as an **orchestrator plus 12 operators**. A we
 
 Built on the Supervity Auto agent platform with Supabase, HubSpot, Slack and Outlook. I designed and built the agent side; a web dashboard on top (policies, human queue, insights) was built by my co-founder.
 
-## What it does
+## Architecture
 
 ```mermaid
 flowchart LR
@@ -69,4 +69,11 @@ flowchart LR
 
 ## Stack
 
-Supervity Auto (agent platform), Supabase / PostgreSQL, HubSpot, Slack, Outlook, Python
+| Layer | Tools |
+|---|---|
+| Agent platform | Supervity Auto (orchestrator plus 12 operators) |
+| State and data | Supabase / PostgreSQL (the `lead_runs` table) |
+| CRM | HubSpot (contacts, companies, deals) |
+| Alerts | Slack (human-handoff notifications) |
+| Email | Outlook (draft-only outreach) |
+| Scripting | Python |
