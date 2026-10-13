@@ -2,7 +2,7 @@
 
 An AI sales-intake employee built as an **orchestrator plus 12 operators**. A website visitor or inbound lead comes in; the agent identifies and enriches them, removes duplicates, scores intent, matches them to an account, routes them to the right rep, checks consent, and either engages or hands the lead to a human with full context.
 
-> **Scope, stated plainly.** Built and tested on the Supervity Auto platform against a seeded sample dataset. It is a working system I designed and debugged end to end, not a production deployment for a paying customer. The workflows are hosted on the platform, so this repo documents the design rather than shipping runnable code. The web dashboard that sits on top (policies, human queue, insights) was built by my co-founder; this repo covers the agent side, which I built.
+Built on the Supervity Auto agent platform with Supabase, HubSpot, Slack and Outlook. I designed and built the agent side; a web dashboard on top (policies, human queue, insights) was built by my co-founder.
 
 ## What it does
 
@@ -56,7 +56,7 @@ flowchart LR
 | Problem | Cause | Fix |
 |---|---|---|
 | A run reported "success" while every database call had failed | Generated code swallowed exceptions | Made write failures raise; verified by querying the database, not by the run summary |
-| Results computed correctly but never saved | A PATCH sent `"updated_at": "now()"` as a literal string. The likely cause: the API rejected the whole request, so every other field stayed null too | Send a real timestamp, and treat a zero-row write as an error |
+| Results computed correctly but never saved | A PATCH sent `"updated_at": "now()"` as a literal string, so the API rejected the whole request and every other field stayed null | Send a real timestamp, and treat a zero-row write as an error |
 | Operator processed the wrong lead | Generated code contained a hardcoded override for one test session id | Removed it, then audited every operator for the same pattern |
 | Intent scores were all zero | Scoring read a field that nothing ever populated; the real source was a different table | Pointed it at the real event table and re-verified against known leads |
 
